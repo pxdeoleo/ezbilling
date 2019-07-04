@@ -4,6 +4,7 @@
 class plantilla
 {
     public static $instancia;
+    
     public static function aplicar(){
 
         self:: $instancia = new plantilla();

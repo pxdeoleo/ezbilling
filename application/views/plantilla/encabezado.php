@@ -15,11 +15,11 @@ $base = base_url('base');
 
   <!-- Custom fonts for this theme -->
   <link href="<?=$base; ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="<?=$base; ?>/fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
-  <link href="<?=$base; ?>/fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <link href="fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
 
   <!-- Theme CSS -->
-  <link href="css/freelancer.min.css" rel="stylesheet">
+  <link href="<?=$base;?>/css/freelancer.min.css" rel="stylesheet">
 
 </head>
 

@@ -48,7 +48,7 @@ plantilla::aplicar();
                   </thead>
                   <tbody id="tabla">
                     <?php
-                      $rs = core_articulos::listado();
+                      $rs = core_articulo::listado_articulos();
 
                       foreach ($rs as $articulo) {
                         echo <<<TABLA

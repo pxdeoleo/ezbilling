@@ -31,39 +31,39 @@ if (isset($id_articulo)) {
 </head>
 <body>
 <div class="container">
-<form method= "post" action="" id="form">
-<input type="hidden" name="id_articulo" value='<?= $articulo['id_articulo']?>'>
-<h3>AGREGAR ARTICULO</h3>
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <?= asgInput('nombre','Nombre', ['placeholder'=>'Ingrese nombre...','required'=>'required','value'=>$articulo['nombre']]); ?>
+    <form method= "post" action="" id="form">
+    <input type="hidden" name="id_articulo" value='<?= $articulo['id_articulo']?>'>
+    <h3>AGREGAR ARTICULO</h3>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <?= asgInput('nombre','Nombre', ['placeholder'=>'Ingrese nombre...','required'=>'required','value'=>$articulo['nombre']]); ?>
+            </div>
         </div>
-    </div>
 
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <?= asgInput('costo','Costo', ['placeholder'=>'Ingrese costo...','required'=>'required','value'=>$articulo['costo']]); ?>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <?= asgInput('costo','Costo', ['placeholder'=>'Ingrese costo...','required'=>'required','value'=>$articulo['costo']]); ?>
+            </div>
         </div>
-    </div>
 
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <?= asgInput('precio','Precio', ['placeholder'=>'Ingrese precio...','required'=>'required', 'type'=>'tell','value'=>$articulo['precio']]); ?>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <?= asgInput('precio','Precio', ['placeholder'=>'Ingrese precio...','required'=>'required', 'type'=>'tell','value'=>$articulo['precio']]); ?>
+            </div>
         </div>
-    </div>
 
-    <div class="form-row">
-        <div class="col-md-4 mb-3">
-            <?= asgInput('existencia','Existencia', ['placeholder'=>'Ingrese cantidad...','required'=>'required','value'=>$articulo['existencia']]); ?>
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <?= asgInput('existencia','Existencia', ['placeholder'=>'Ingrese cantidad...','required'=>'required','value'=>$articulo['existencia']]); ?>
+            </div>
         </div>
-    </div>
-<br>
-    <div>
-    <button type="submit" class="btn btn-outline-primary"> <i  class="fa fa-user-plus"> MODIFICAR</i></button>
-    <button type="reset" onclick="return confirm('Seguro de limpiar los campos?')" class="btn btn-outline-warning"><i class="fa fa-eraser">LIMPIAR</i></button>
-    </div>
+    <br>
+        <div>
+        <button type="submit" class="btn btn-outline-primary"> <i  class="fa fa-user-plus"> MODIFICAR</i></button>
+        <button type="reset" onclick="return confirm('Seguro de limpiar los campos?')" class="btn btn-outline-warning"><i class="fa fa-eraser">LIMPIAR</i></button>
+        </div>
 
-</form>
+    </form>
 
 </div>
 <style>

@@ -121,7 +121,4 @@ class core_articulo{
             $rs= $CI->db->get('clientes')->result();
             return $rs;
         }
-
-
-
-?>
+    }
