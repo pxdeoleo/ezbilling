@@ -30,6 +30,34 @@ class Main extends CI_Controller {
         $this->load->view('new_client');
     }
 
+    public function borrar_cliente($id=0)
+    {
+        core_cliente::borrar($id);
+        redirect('main/clientes');
+    }
+
+    public function editar_cliente($id=0)
+    {
+        $this->load->view('edit_client',['id_cliente'=>$id]);      
+    }
+
+    public function usuarios()
+    {
+        $this->load->view('new_user');
+    }
+
+    public function borrar_usuario($id=0)
+    {
+        core_usuario::borrar($id);
+        redirect('main/usuarios');
+    }
+
+    public function editar_usuario($id=0)
+    {
+        $this->load->view('edit_user',['id_usuario'=>$id]);      
+    }
+
+
     public function cerrar_sesion(){
         session_start();
         session_destroy();

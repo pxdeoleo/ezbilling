@@ -37,7 +37,7 @@ plantilla::aplicar();
             <?= asgInput('existencia','Existencia', ['placeholder'=>'Ingrese cantidad...','required'=>'required']); ?>
         </div>
     </div>
-<br>
+
     <div>
     <button type="submit" class="btn btn-outline-primary"> <i  class="fa fa-user-plus"> AGREGAR</i></button>
     <button type="reset" onclick="return confirm('Seguro de limpiar los campos?')" class="btn btn-outline-warning"><i class="fa fa-eraser">LIMPIAR</i></button>
