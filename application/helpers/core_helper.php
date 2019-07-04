@@ -21,6 +21,16 @@
         }
     }
 
+    class core_articulos{
+        static function listado(){
+            $CI =& get_instance();
+
+            $rs = $CI->db->get('articulos')->result();
+
+            return $rs;
+        }
+    }
+
 
 
 ?>
