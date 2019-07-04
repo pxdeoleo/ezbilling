@@ -32,10 +32,10 @@ plantilla::aplicar();
               <div class="card-body">
                   <h5 class="card-title">Usuario</h5>
                   <i class="fa fa-user" style="font-size:36px"></i>
-                  <p>Nombre de Usuario: <?=$_SESSION['user']?></p>
+                  <p>Usuario: <?=$_SESSION['user']?></p>
 
-                  <button type="submit" class="btn btn-outline-primary">  Administrar usuario</button>
-                  <button type="submit" class="btn btn-outline-warning" onclick="location.href='main/cerrar_sesion';"> Cerrar sesion</button>
+                  <button class="btn btn-outline-primary" onclick="location.href='main/usuarios';">  Administrar usuario</button> <br>
+                  <button class="btn btn-outline-warning" onclick="location.href='main/cerrar_sesion';"> Cerrar sesion</button>
               </div>
               </div>
               
@@ -54,7 +54,7 @@ plantilla::aplicar();
   }
 
   .card .card-title {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
     font-weight: 300;
     font-size: 1.5rem;
   }
