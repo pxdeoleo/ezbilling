@@ -64,6 +64,16 @@ class Main extends CI_Controller {
         redirect('login');
     }
 
+    public function borrar_articulo($id=0)
+    {
+        core_articulo::borrar($id);
+        redirect('main/articulos');
+    }
+
+    public function editar_articulo($id=0)
+    {
+        $this->load->view('editar_articulo',['id_articulo'=>$id]);      
+    }
 }
 
 /* End of file Main.php */

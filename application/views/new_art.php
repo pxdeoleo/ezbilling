@@ -1,6 +1,11 @@
 <?php 
 plantilla::aplicar();
 
+if($_POST){
+    $articulo = $_POST;
+    core_articulo::guardar($articulo);
+    redirect('main/articulos');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +13,8 @@ plantilla::aplicar();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clientes</title>
+   
+    <title>Articulos</title>
 </head>
 <body>
 <div class="container">
@@ -44,6 +50,39 @@ plantilla::aplicar();
     </div>
 
 </form>
+
+<hr>
+
+<h3>DATOS GUARDADOS</h3>
+    <table class="table">
+        <thead>
+            <th>Nombre</th>
+            <th>Costo</th>
+            <th>Precio</th>
+            <th>Existencia</th>
+            <th></th>
+            <th></th>
+
+        </thead>
+        <tbody>
+        <?php
+            $rs = core_articulo::listado_articulos();
+            foreach($rs as $articulo){
+                $urlBorrar = base_url("main/borrar_articulo/{$articulo->id_articulo}");
+                $urlEditar = base_url("main/editar_articulo/{$articulo->id_articulo}");
+                echo"
+            <tr>
+            <td>{$articulo->nombre}</td>
+            <td>{$articulo->costo}</td>
+            <td>{$articulo->precio}</td>
+            <td>{$articulo->existencia}</td>
+            <td><a href='$urlBorrar' onclick=\"return confirm('Estas seguro de eliminarlo?')\" class='btn btn-danger'>X</a></td>
+            <td><a href='$urlEditar' onclick=\"return confirm('Estas seguro de modificarlo?')\" class='btn btn-warning'><i class='fa fa-edit'></i></a></td>
+            </tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 </div>
 <style>
     #form{
