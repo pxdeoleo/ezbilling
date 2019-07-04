@@ -21,6 +21,7 @@
         }
     }
 
+
     class core_usuario{
         static function guardar($usuario){
             $CI =& get_instance();
@@ -83,6 +84,16 @@
             $CI =& get_instance();
     
             $rs= $CI->db->get('clientes')->result();
+            return $rs;
+        }
+
+
+    class core_articulos{
+        static function listado(){
+            $CI =& get_instance();
+
+            $rs = $CI->db->get('articulos')->result();
+
             return $rs;
         }
 
