@@ -74,6 +74,11 @@ class Main extends CI_Controller {
     {
         $this->load->view('editar_articulo',['id_articulo'=>$id]);      
     }
+
+    public function facturar()
+    {
+        $this->load->view('facturar');
+    }
 }
 
 /* End of file Main.php */

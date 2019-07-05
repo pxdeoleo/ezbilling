@@ -11,12 +11,16 @@ $base = base_url('base');
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Facturacion</title>
+  <title>Easy Billing</title>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>
 
   <!-- Custom fonts for this theme -->
   <link href="<?=$base; ?>/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
   <link href="fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  
 
   <!-- Theme CSS -->
   <link href="<?=$base;?>/css/freelancer.min.css" rel="stylesheet">

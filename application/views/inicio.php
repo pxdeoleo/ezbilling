@@ -9,7 +9,6 @@ plantilla::aplicar();
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <title>Easy Billing</title>
   <!-- Script para búsqueda -->
   <script>
     $(document).ready(function(){
@@ -26,7 +25,7 @@ plantilla::aplicar();
 <body> 
   <div class="container">
       <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-8">
           <!-- Input de búsqueda -->
             <div class="input-group mb-3">
               <div class="input-group-prepend">
@@ -35,7 +34,7 @@ plantilla::aplicar();
               <input type="text" class="form-control" id="busca_id" placeholder="Búsqueda" aria-label="Username" aria-describedby="basic-addon1">
               <!-- Boton de generar factura -->
               <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary" type="button">Generar factura</button>
+                <button class="btn btn-outline-secondary" onclick="location.href='main/facturar'" type="button">Generar factura</button>
               </div>
             </div>
             <!-- Tabla de artículos -->

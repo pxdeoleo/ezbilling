@@ -5,6 +5,8 @@ function asgInput($nombre, $label, $opts=[]){
     $required='';
     $value='';
     $class='form-control';
+    $disabled='';
+    $id=$nombre;
 
     foreach($opts as $k=>$v){
         $$k = $v;
@@ -12,7 +14,7 @@ function asgInput($nombre, $label, $opts=[]){
 
     return "<div class='form=group'>
     <label> {$label}: </label>
-    <input placeholder='{$placeholder}' class='{$class}' {$required} type='{$type}' name='{$nombre}' value='{$value}'/>
+    <input placeholder='{$placeholder}' class='{$class}' {$disabled} {$required} type='{$type}' name='{$nombre}' value='{$value}' id='{$id}'/>
     </div>";
 }
 
