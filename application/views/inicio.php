@@ -34,7 +34,10 @@ plantilla::aplicar();
               <input type="text" class="form-control" id="busca_id" placeholder="Búsqueda" aria-label="Username" aria-describedby="basic-addon1">
               <!-- Boton de generar factura -->
               <div class="input-group-prepend">
-                <button class="btn btn-outline-secondary" onclick="location.href='main/facturar'" type="button">Generar factura</button>
+                <button class="btn btn-outline-primary" onclick="location.href='main/facturar'" type="button">Generar factura</button>
+              </div>
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" onclick="location.href='main/facturas'" type="button">Facturas</button>
               </div>
             </div>
             <!-- Tabla de artículos -->
