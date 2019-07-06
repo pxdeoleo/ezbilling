@@ -222,7 +222,7 @@ $urlImprimir = base_url("main/imprimir/{$nofactura}");
             });
             $("#imprimir").attr("disabled", false);
             document.getElementById('botonaso').innerHTML="<a href=\"<?=$urlImprimir?>\" onclick=\"return confirm('¿Está seguro?')\" class='btn btn-secondary'>Imprimir</a>";
-            alert('dique se hizo bien');
+            alert('Factura guardada correctamente');
         }
     }
 </script>
