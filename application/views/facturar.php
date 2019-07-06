@@ -1,20 +1,21 @@
 <?php
+session_start();
 plantilla::aplicar();
 $base=base_url('base');
 $fecha=date('Y-m-d H:i');
+$id_usuario = $_SESSION['id_usuario'];
+// Obtener numero maximo de ultima factura, para asignar el numero de factura actual
+$CI =& get_instance();
+$rs = $CI->db
+->query('SELECT MAX(id_factura) as idfact FROM facturas')
+->result_array();
 
-$rs = core_factura::listado_factura();
-foreach ($rs as $factura) {
-    $urlImprimir = base_url("main/imprimir/{$factura->id_factura}");
-    
+if($rs){
+    $nofactura = $rs[0]['idfact']+1;
 }
- ?>
-<head>
-<script src="<?=$base?>/bootstrap-input-spinner-master/src/bootstrap-input-spinner.js"></script>
-<script>
-    $("input[type='number']").inputSpinner()
-</script>
-</head>
+
+?>
+
 <body>
 
     <hr>
@@ -25,9 +26,10 @@ foreach ($rs as $factura) {
     
     <div class="container">
         <form method="post" action="" id="form" autocomplete="off">
-            <h3>Factura Electrónica</h3>    
+            <h4 align='right'>Factura no. <?=$nofactura?></h2>
+            <h2>Factura Electrónica</h3>
             <hr>
-            <div class="form-row">
+            <!-- <div class="form-row">
                 <div class="col-md-2 mb-3">
                     <?= asgInput('fecha','Fecha de Emisión', ['required'=>'required', 'value'=>$fecha, 'disabled'=>'disabled']); ?>
                 </div>
@@ -35,6 +37,8 @@ foreach ($rs as $factura) {
                     <a href="<?= $urlImprimir ?>" class='btn btn-warning'>Imprimir</a>
                 </div>
             </div>
+
+            </div> -->
             
             <h4>Cliente</h4>
             <hr>
@@ -51,8 +55,12 @@ foreach ($rs as $factura) {
                 <div class="col-md-3 mb-3">
                     <?= asgInput('telefono','No. de Teléfono', ['required'=>'required', 'placeholder'=>'8098098009', 'disabled'=>'disabled']); ?>
                 </div>
+                <div class="col-md-1 mb-3">
+                    <?= asgInput('id_cliente','ID Cliente', ['required'=>'required', 'placeholder'=>'XXX', 'disabled'=>'disabled']); ?>
+                </div>
+                
                 <div class="form-row">
-                    <button class="btn btn-primary">Nuevo Cliente</button>
+                    <button type='button' onclick="location.href='../main/clientes';" class="btn btn-primary">Nuevo Cliente</button>
                     <button type="reset" class="btn btn-secondary">Limpiar</button>
                 </div>
             </div>
@@ -80,9 +88,9 @@ foreach ($rs as $factura) {
                     <?=asgInput('acumulado', 'Acumulado', ['required'=>'required'])?>
                 </div>
             </div>
-        <div class="form-row">
-                <button type="button" onclick="agregarArticulo()" class="btn btn-primary">Agregar Artículo</button>
-                <button type="reset" class="btn btn-secondary">Limpiar</button>
+        <div class='ml-auto'>
+            <button type="button" onclick="agregarArticulo()" class="btn btn-primary">Agregar Artículo</button>
+            <button type="reset" class="btn btn-secondary">Limpiar</button>
         </div>    
         </form>
         <hr>
@@ -122,13 +130,114 @@ foreach ($rs as $factura) {
                         </tr>
                     </tfoot>    
                 </table>
+                <table class='table'>
+                    <tr>
+                        <th>Fecha</th>
+                        <td id = 'fecha'><?=$fecha?></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>Le atendió</th>
+                        <td><?=$_SESSION['nombre']?></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
             </div>
         </div>
+        <hr>
+        <div class='ml-auto'>
+            <button type="button" onclick='guardarFactura()' class="btn btn-primary">Guardar Factura</button>
+        </div> 
+        <hr>
     </div>
 </body>
 </html>
 
 <!-- Scritps, scripts y más scripts -->
+<!-- Guardar factura -->
+<script>
+    function guardarFactura(){
+        if(!(document.getElementById('id_cliente').value).trim()=="" || document.getElementById('id_articulo').value).trim()=="")){
+            alert("Por favor ingrese la información necesaria");
+        }else{
+            //Tabla ventas
+            var id_articulos=[];
+            $('#articulos_tabla tbody tr td:nth-child(1)').each( function(){
+                id_articulos.push( $(this).text() );    
+                console.log($(this).text());
+            });
+            var cantidad_articulos=[];
+            $('#articulos_tabla tbody tr td:nth-child(3)').each( function(){
+                cantidad_articulos.push( $(this).text());    
+                console.log($(this).text());
+            });
+            var precio_articulos=[];
+            $('#articulos_tabla tbody tr td:nth-child(4)').each( function(){
+                precio_articulos.push( $(this).text());    
+                console.log($(this).text());
+            });
+            var total_articulos=[];
+            $('#articulos_tabla tbody tr td:nth-child(5)').each( function(){
+                total_articulos.push( $(this).text());    
+                console.log($(this).text());
+            });
+            var ventas_info = {
+                'id_factura':<?=$nofactura?>,
+                'id_articulos':id_articulos,
+                'cantidad':cantidad_articulos,
+                'precio':precio_articulos,
+                'total':total_articulos
+            }
+
+            $.ajax({
+                url:"<?=$base?>/php/guardar_ventas.php",
+                method:"POST",
+                data:{datos}
+            }).done(function(respuesta){
+                console.log(respuesta);
+            });
+
+
+            // Tabla Facturas
+            var fecha = document.getElementById('fecha').innerHTML;
+            var subtotal = document.getElementById('td_subtotal').innerHTML;
+            var imp = document.getElementById('td_itbis').innerHTML;
+            var total = document.getElementById('td_total').innerHTML;
+            var id_cliente = document.getElementById('id_cliente').value;
+
+            /* console.log(fecha);
+            console.log(subtotal);
+            console.log(imp);
+            console.log(total); */
+            
+            var id_usuario = "<?=$id_usuario?>";
+
+            var factura_info = {
+                'fecha':fecha,
+                'subtotal':subtotal,
+                'imp':imp,
+                'total':total,
+                'id_cliente':id_cliente,
+                'id_usuario':id_usuario
+            }
+
+            var datos = {
+                'factura_info':factura_info,
+                'ventas_info':ventas_info
+                };
+            $.ajax({
+                url:"<?=$base?>/php/guardar_factura.php",
+                method:"POST",
+                data:{datos}
+            }).done(function(respuesta){
+                console.log(respuesta);
+            });
+        }
+    }
+</script>
+
 
 <!-- Autocompletar cedula -->
 <script>
@@ -161,6 +270,7 @@ $(document).ready(function(){
                 document.getElementById('nombre').value = respuesta.nombre;
                 document.getElementById('correo').value = respuesta.correo;
                 document.getElementById('telefono').value=respuesta.telefono;
+                document.getElementById('id_cliente').value=respuesta.id_cliente;
             });
         }
     
@@ -188,22 +298,22 @@ $(document).ready(function(){
      })
  },//Luego de que se selecciona un articulo se actualizan los campos
      afterSelect: function (data) {
-         var datos = {"nombre":data};
-         $.ajax({
-             url:"<?=$base?>/php/refresh_articulo.php",
-             method:"POST",
-             data:{datos}
-         }).done(function(respuesta){
-             console.log(respuesta);
-             respuesta = JSON.parse(respuesta);
-             document.getElementById('id_articulo').value = respuesta.id_articulo;
-             document.getElementById('precio').value = respuesta.precio;
-             document.getElementById('precio').min = respuesta.precio;
-             console.log(respuesta.existencia);
-             document.getElementById('cantidad').max = respuesta.existencia;
-             document.getElementById('cantidad').value = 1;
-             document.getElementById('acumulado').value= respuesta.precio;
-         });
+        var datos = {"nombre":data};
+        $.ajax({
+            url:"<?=$base?>/php/refresh_articulo.php",
+            method:"POST",
+            data:{datos}
+        }).done(function(respuesta){
+            console.log(respuesta);
+            respuesta = JSON.parse(respuesta);
+            document.getElementById('id_articulo').value = respuesta.id_articulo;
+            document.getElementById('precio').value = respuesta.precio;
+            document.getElementById('precio').min = respuesta.precio;
+            console.log(respuesta.existencia);
+            document.getElementById('cantidad').max = respuesta.existencia;
+            document.getElementById('cantidad').value = 1;
+            document.getElementById('acumulado').value= respuesta.precio;
+        });
      }
  
  });
@@ -214,7 +324,7 @@ $(document).ready(function(){
 <script>
 $(document).ready(function(){
     $('#precio').on('input', function() { 
-        document.getElementById('acumulado').value = document.getElementById('precio').value * document.getElementById('cantidad').value;
+        document.getElementById('acumulado').value = parseFloat(document.getElementById('precio').value * document.getElementById('cantidad').value);
     });
 });
 // Cambiar acumulado cada vez que cambia la cantidad
@@ -228,29 +338,33 @@ $(document).ready(function(){
 <!-- Agregar articulo -->
 <script>
 function agregarArticulo(){
-    // Si el articulo ya está agregado, no se permite agregar de nuevo
-    if($("#tr_articulo_"+document.getElementById("id_articulo").value).length){
-        alert('El articulo ya está agregado');
+    // Si hay algún campo sin llenar, no permite que se agregue
+    if(!((document.getElementById('id_articulo').value).trim()=="" || (document.getElementById('articulo').value).trim()=="" 
+    || (document.getElementById('precio').value).trim()=="" || (document.getElementById('cantidad').value).trim()==""
+    || (document.getElementById('acumulado').value).trim()=="")){
+        // Si el articulo ya está agregado, no se permite agregar de nuevo
+        if($("#tr_articulo_"+document.getElementById("id_articulo").value).length){
+            alert('El articulo ya está agregado');
+        }else{
+            $("#articulos_tabla tbody").append(
+                "<tr id=tr_articulo_"+document.getElementById("id_articulo").value+">" +
+                    "<td class='td_id_art'>"+document.getElementById("id_articulo").value+"</td>"+
+                    "<td>"+document.getElementById('articulo').value+   "</td>"+
+                    "<td id=articulo_cantidad_"+document.getElementById("id_articulo").value+">"+document.getElementById('cantidad').value+   "</td>"+
+                    "<td>"+document.getElementById('precio').value+     "</td>"+
+                    "<td id=articulo_precio_"+document.getElementById("id_articulo").value+">"+document.getElementById('acumulado').value+  "</td>"+
+                    "<td><button class='btn btn-danger' onclick='borrarArticulo("+document.getElementById("id_articulo").value+")'>Borrar</button></td>"+
+                "</tr>"
+            );
+            // Cambiar los valores subtotal, itbis y total cada vez que se agrega un articulo
+            document.getElementById('td_subtotal').innerHTML = parseFloat(document.getElementById('td_subtotal').innerHTML) + parseFloat(document.getElementById('acumulado').value);
+            document.getElementById('td_itbis').innerHTML = (parseFloat(document.getElementById('td_subtotal').innerHTML) * 0.18).toFixed(2);
+            document.getElementById('td_total').innerHTML = (parseFloat(document.getElementById('td_subtotal').innerHTML) + parseFloat(document.getElementById('td_itbis').innerHTML)).toFixed(2);
+        }
     }else{
-        $("#articulos_tabla tbody").append(
-        "<tr id=tr_articulo_"+document.getElementById("id_articulo").value+">" +
-            "<td>"+document.getElementById("id_articulo").value+"</td>"+
-            "<td>"+document.getElementById('articulo').value+   "</td>"+
-            "<td id=articulo_cantidad_"+document.getElementById("id_articulo").value+">"+document.getElementById('cantidad').value+   "</td>"+
-            "<td>"+document.getElementById('precio').value+     "</td>"+
-            "<td id=articulo_precio_"+document.getElementById("id_articulo").value+">"+document.getElementById('acumulado').value+  "</td>"+
-            "<td><button class='btn btn-danger' onclick='borrarArticulo("+document.getElementById("id_articulo").value+")'>Borrar</button></td>"+
-        "</tr>"
-        );
-        // Cambiar los valores subtotal, itbis y total cada vez que se agrega un articulo
-        document.getElementById('td_subtotal').innerHTML = parseFloat(document.getElementById('td_subtotal').innerHTML) + parseFloat(document.getElementById('acumulado').value);
-        document.getElementById('td_itbis').innerHTML = (parseFloat(document.getElementById('td_subtotal').innerHTML) * 0.18).toFixed(2);
-        document.getElementById('td_total').innerHTML = (parseFloat(document.getElementById('td_subtotal').innerHTML) + parseFloat(document.getElementById('td_itbis').innerHTML)).toFixed(2);
+        alert('Por favor verifique los campos');
     }
 
-    
-
-    
 }
 </script>
 <script>

@@ -14,7 +14,8 @@ if(mysqli_num_rows($result) > 0)
         $data = array(
             'nombre' => $fila["nombre"],
             'correo' => $fila["correo"],
-            'telefono' => $fila['telefono']
+            'telefono' => $fila['telefono'],
+            'id_cliente'=>$fila['id_cliente']
         );
     }
     
