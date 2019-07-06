@@ -8,7 +8,7 @@ if ($_POST) {
 }
 
 $cliente = new stdClass;
-$cliente->id_cliente = '';
+$cliente->id_usuario = '';
 $cliente->cedula='';
 $cliente->nombre='';
 $cliente->correo='';

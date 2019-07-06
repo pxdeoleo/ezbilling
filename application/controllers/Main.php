@@ -79,11 +79,6 @@ class Main extends CI_Controller {
     {
         $this->load->view('facturar');
     }
-
-    public function imprimir($id=0)
-    {
-        $this->load->view('imprimir',['id_factura'=>$id]);      
-    }
 }
 
 /* End of file Main.php */
