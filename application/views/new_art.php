@@ -71,14 +71,14 @@ if($_POST){
                     $urlBorrar = base_url("main/borrar_articulo/{$articulo->id_articulo}");
                     $urlEditar = base_url("main/editar_articulo/{$articulo->id_articulo}");
                     echo"
-                <tr>
-                <td>{$articulo->nombre}</td>
-                <td>{$articulo->costo}</td>
-                <td>{$articulo->precio}</td>
-                <td>{$articulo->existencia}</td>
-                <td><a href='$urlBorrar' onclick=\"return confirm('Estas seguro de eliminarlo?')\" class='btn btn-danger'>X</a></td>
-                <td><a href='$urlEditar' onclick=\"return confirm('Estas seguro de modificarlo?')\" class='btn btn-warning'><i class='fa fa-edit'></i></a></td>
-                </tr>";
+                    <tr>
+                    <td>{$articulo->nombre}</td>
+                    <td>{$articulo->costo}</td>
+                    <td>{$articulo->precio}</td>
+                    <td>{$articulo->existencia}</td>
+                    <td><a href='$urlBorrar' onclick=\"return confirm('Estas seguro de eliminarlo?')\" class='btn btn-danger'>X</a></td>
+                    <td><a href='$urlEditar' onclick=\"return confirm('Estas seguro de modificarlo?')\" class='btn btn-warning'><i class='fa fa-edit'></i></a></td>
+                    </tr>";
                 }
                 ?>
             </tbody>

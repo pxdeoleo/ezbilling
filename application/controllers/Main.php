@@ -57,6 +57,10 @@ class Main extends CI_Controller {
         $this->load->view('edit_user',['id_usuario'=>$id]);      
     }
 
+    public function imprimir($id=0)
+    {
+        $this->load->view('imprimir',['id_factura'=>$id]);      
+    }
 
     public function cerrar_sesion(){
         session_start();
@@ -78,6 +82,10 @@ class Main extends CI_Controller {
     public function facturar()
     {
         $this->load->view('facturar');
+    }
+    public function facturas()
+    {
+        $this->load->view('facturas');
     }
 }
 

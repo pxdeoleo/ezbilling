@@ -3,16 +3,18 @@ session_start();
 plantilla::aplicar();
 $base=base_url('base');
 $fecha=date('Y-m-d H:i');
+
 $id_usuario = $_SESSION['id_usuario'];
 // Obtener numero maximo de ultima factura, para asignar el numero de factura actual
 $CI =& get_instance();
 $rs = $CI->db
 ->query('SELECT MAX(id_factura) as idfact FROM facturas')
 ->result_array();
-
 if($rs){
     $nofactura = $rs[0]['idfact']+1;
 }
+
+$urlImprimir = base_url("main/imprimir/{$nofactura}");
 
 ?>
 
@@ -142,9 +144,10 @@ if($rs){
             </div>
         </div>
         <hr>
-        <div class='ml-auto'>
+        <div class='form-row' class='ml-auto'>
             <button type="button" onclick='guardarFactura()' class="btn btn-primary">Guardar Factura</button>
-        </div> 
+            <div id='botonaso'></div>
+        </div>
         <hr>
     </div>
 </body>
@@ -154,7 +157,7 @@ if($rs){
 <!-- Guardar factura -->
 <script>
     function guardarFactura(){
-        if(!(document.getElementById('id_cliente').value).trim()=="" || document.getElementById('id_articulo').value).trim()=="")){
+        if((document.getElementById('id_cliente').value).trim()=="" || (document.getElementById('id_articulo').value).trim()==""){
             alert("Por favor ingrese la información necesaria");
         }else{
             //Tabla ventas
@@ -185,30 +188,19 @@ if($rs){
                 'precio':precio_articulos,
                 'total':total_articulos
             }
-
-            $.ajax({
-                url:"<?=$base?>/php/guardar_ventas.php",
-                method:"POST",
-                data:{datos}
-            }).done(function(respuesta){
-                console.log(respuesta);
-            });
-
-
+            
             // Tabla Facturas
             var fecha = document.getElementById('fecha').innerHTML;
             var subtotal = document.getElementById('td_subtotal').innerHTML;
             var imp = document.getElementById('td_itbis').innerHTML;
             var total = document.getElementById('td_total').innerHTML;
             var id_cliente = document.getElementById('id_cliente').value;
-
             /* console.log(fecha);
             console.log(subtotal);
             console.log(imp);
             console.log(total); */
             
             var id_usuario = "<?=$id_usuario?>";
-
             var factura_info = {
                 'fecha':fecha,
                 'subtotal':subtotal,
@@ -217,7 +209,6 @@ if($rs){
                 'id_cliente':id_cliente,
                 'id_usuario':id_usuario
             }
-
             var datos = {
                 'factura_info':factura_info,
                 'ventas_info':ventas_info
@@ -229,6 +220,9 @@ if($rs){
             }).done(function(respuesta){
                 console.log(respuesta);
             });
+            $("#imprimir").attr("disabled", false);
+            document.getElementById('botonaso').innerHTML="<a href=\"<?=$urlImprimir?>\" onclick=\"return confirm('¿Está seguro?')\" class='btn btn-secondary'>Imprimir</a>";
+            alert('dique se hizo bien');
         }
     }
 </script>
@@ -268,7 +262,6 @@ $(document).ready(function(){
                 document.getElementById('id_cliente').value=respuesta.id_cliente;
             });
         }
-    
     });
  
 });
