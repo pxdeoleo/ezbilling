@@ -3,11 +3,6 @@ plantilla::aplicar();
 $base=base_url('base');
 $fecha=date('Y-m-d H:i');
 
-$rs = core_factura::listado_factura();
-foreach ($rs as $factura) {
-    $urlImprimir = base_url("main/imprimir/{$factura->id_factura}");
-    
-}
  ?>
 <head>
 <script src="<?=$base?>/bootstrap-input-spinner-master/src/bootstrap-input-spinner.js"></script>
@@ -32,7 +27,7 @@ foreach ($rs as $factura) {
                     <?= asgInput('fecha','Fecha de Emisión', ['required'=>'required', 'value'=>$fecha, 'disabled'=>'disabled']); ?>
                 </div>
                 <div class="col-md-2 mb-3 ml-auto">
-                    <a href="<?= $urlImprimir ?>" class='btn btn-warning'>Imprimir</a>
+                    <a href="" class='btn btn-warning'>Imprimir</a>
                 </div>
             </div>
             
@@ -51,40 +46,9 @@ foreach ($rs as $factura) {
                 <div class="col-md-3 mb-3">
                     <?= asgInput('telefono','No. de Teléfono', ['required'=>'required', 'placeholder'=>'8098098009', 'disabled'=>'disabled']); ?>
                 </div>
-                <div class="form-row">
-                    <button class="btn btn-primary">Nuevo Cliente</button>
-                    <button type="reset" class="btn btn-secondary">Limpiar</button>
-                </div>
             </div>
         </form>
         
-        <hr>
-        <form method="post" action="" id="form" autocomplete="off">
-            <h4>Artículos</h4>
-            <div class="form-row">
-                <div class="col-md-2 mb-3">
-                    <?= asgInput('id_articulo','ID', ['required'=>'required', 'disabled'=>'disabled']); ?>
-                </div>
-                <div class="col-md-4 mb-3">
-                    <?= asgInput('articulo','Nombre del Artículo', ['required'=>'required']); ?>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <label>Precio</label>
-                    <input id="precio" name="precio" type="number" required class='form-control' min="1" step="1"/>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <label>Cantidad</label>
-                    <input id="cantidad" name="cantidad" required type="number" class='form-control' min="1" max="1" step="1"/>
-                </div>
-                <div class="col-md-2 mb-3">
-                    <?=asgInput('acumulado', 'Acumulado', ['required'=>'required'])?>
-                </div>
-            </div>
-        <div class="form-row">
-                <button type="button" onclick="agregarArticulo()" class="btn btn-primary">Agregar Artículo</button>
-                <button type="reset" class="btn btn-secondary">Limpiar</button>
-        </div>    
-        </form>
         <hr>
         <div class="card">
             <div class="card-header">
