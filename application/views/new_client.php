@@ -65,7 +65,7 @@ if ($_POST) {
         </thead>
         <tbody>
         <?php
-            $rs = core_cliente::listado_cliente();
+            $rs = core_cliente::listado_usuario();
             foreach($rs as $cliente){
                 $urlBorrar = base_url("main/borrar_cliente/{$cliente->id_cliente}");
                 $urlEditar = base_url("main/editar_cliente/{$cliente->id_cliente}");
