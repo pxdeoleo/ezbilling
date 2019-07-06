@@ -70,6 +70,7 @@ TABLA;
                   <h5 class="card-title">Usuario</h5>
                   <i class="fa fa-user" style="font-size:36px"></i>
                   <p>Usuario: <?=$_SESSION['user']?></p>
+                  <p>Nombre: <?=$_SESSION['nombre']?></p>
 
                   <button class="btn btn-outline-primary" onclick="location.href='main/usuarios';">  Administrar usuario</button> <br>
                   <button class="btn btn-outline-warning" onclick="location.href='main/cerrar_sesion';"> Cerrar sesion</button>

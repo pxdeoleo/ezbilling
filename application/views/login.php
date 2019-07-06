@@ -7,6 +7,17 @@
   if($_POST){
     if(core_sesion::verificar($_POST['usr'], $_POST['psw'])){
       $_SESSION['user']=$_POST['usr'];
+      //Obtener el nombre del usuario
+      $CI =& get_instance();
+      $rs = $CI->db
+      ->where('usuario', $_POST['usr'])
+      ->get('usuarios')
+      ->result_array();
+      
+      $_SESSION['nombre'] = $rs[0]['nombre'];
+      $_SESSION['id_usuario'] = $rs[0]['id_usuario'];
+
+
       redirect('main');
     }
     

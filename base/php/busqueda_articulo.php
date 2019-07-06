@@ -3,7 +3,7 @@
 $connect = mysqli_connect("localhost", "root", "", "ezbilling");
 $request = mysqli_real_escape_string($connect, $_POST["query"]);
 $query = "
- SELECT * FROM articulos WHERE nombre LIKE '%".$request."%'
+ SELECT * FROM articulos WHERE nombre LIKE '%".$request."%' and existencia > 0
 ";
 
 $result = mysqli_query($connect, $query);
