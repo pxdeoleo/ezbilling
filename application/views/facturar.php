@@ -33,6 +33,11 @@ if($rs){
                 <div class="col-md-2 mb-3">
                     <?= asgInput('fecha','Fecha de Emisión', ['required'=>'required', 'value'=>$fecha, 'disabled'=>'disabled']); ?>
                 </div>
+                <div class="col-md-2 mb-3 ml-auto">
+                    <a href="<?= $urlImprimir ?>" class='btn btn-warning'>Imprimir</a>
+                </div>
+            </div>
+
             </div> -->
             
             <h4>Cliente</h4>

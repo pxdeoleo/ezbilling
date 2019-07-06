@@ -115,10 +115,31 @@ class core_articulo{
             return $rs;
         }
 
-        static function listado_usuario(){
+        static function listado_cliente(){
             $CI =& get_instance();
     
             $rs= $CI->db->get('clientes')->result();
             return $rs;
         }
+    }
+
+    class core_factura{
+        static function factura_x_id($id_factura){
+            $CI =& get_instance();
+            $CI->db->where('id_factura',$id_factura);
+            $rs= $CI->db->get('facturas')->result_array();
+            return $rs;
+        }
+
+        static function listado_factura(){
+            $CI =& get_instance();
+    
+            $rs= $CI->db->get('facturas')->result();
+            return $rs;
+        }
+        
+    }
+
+    class core_ventas{
+        
     }
